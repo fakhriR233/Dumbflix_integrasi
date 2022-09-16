@@ -1,0 +1,16 @@
+[{
+    "id": "1",
+    "name": "ujang",
+    "proof": "bca.jpg",
+    "hari": "25",
+    "memberstatus": "Active",
+    "transactionstatus": "Approve"
+  },
+  {
+    "id": "2",
+    "name": "ujang",
+    "proof": "bca.jpg",
+    "hari": "25",
+    "memberstatus": "Active",
+    "transactionstatus": "Approve"
+  }]
