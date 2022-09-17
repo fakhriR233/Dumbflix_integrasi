@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -11,9 +11,12 @@ import User from "../../Images/User-Icon.png";
 import dropdownFilm from "../../Images/Icons/Film-Icon-Admin.png";
 import dropdownLogout from "../../Images/Icons/logout-icon-drowndown.png";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/userContext";
 
 function TopNavbarAdmin() {
   let Navigate = useNavigate();
+
+  const [state, dispatch] = useContext(UserContext);
 
   function adminFilmHandler(e) {
     e.preventDefault();
@@ -23,6 +26,15 @@ function TopNavbarAdmin() {
   function logoAdminHandler(e) {
     e.preventDefault();
     Navigate("/listtransactions");
+  }
+
+  function handleLogout(e) {
+    e.preventDefault();
+    console.log(state);
+    dispatch({
+      type: "LOGOUT",
+    });
+    Navigate("/");
   }
 
   return (
@@ -69,7 +81,7 @@ function TopNavbarAdmin() {
             </NavDropdown.Item>
 
             <NavDropdown.Divider />
-            <NavDropdown.Item href="/">
+            <NavDropdown.Item onClick={handleLogout}>
               <img
                 src={dropdownLogout}
                 width="20"

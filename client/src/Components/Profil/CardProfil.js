@@ -4,7 +4,8 @@ import { IoLocationSharp } from "react-icons/io5";
 import VIPImage from "../../Images/vipimage.png";
 import FotoProfile from "../../Images/profil.jpeg";
 
-function CardProfil() {
+function CardProfil({ profile }) {
+  console.log(profile);
   return (
     <>
       <Row
@@ -36,7 +37,7 @@ function CardProfil() {
                   verticalAlign: "Center",
                 }}
               >
-                Ujang Pudin
+                {profile?.FullName}
               </h6>
               <p
                 style={{
@@ -64,7 +65,7 @@ function CardProfil() {
                   verticalAlign: "Center",
                 }}
               >
-                siapa@gmail.com
+                {profile.email}
               </h6>
               <p
                 style={{
@@ -95,8 +96,11 @@ function CardProfil() {
                   align: "Left",
                   verticalAlign: "Center",
                 }}
+                className="ps-1"
               >
-                Active
+                {profile.subscribe !== "" && profile.subscribe !== "false"
+                  ? "Activer"
+                  : "Inactive"}
               </h6>
               <p
                 style={{
@@ -104,7 +108,7 @@ function CardProfil() {
                   fontStyle: "Roman",
                   fontSize: "12px",
                 }}
-                className="text-muted"
+                className="text-muted ps-1"
               >
                 Status
               </p>
@@ -124,7 +128,7 @@ function CardProfil() {
                   verticalAlign: "Center",
                 }}
               >
-                Male
+                {profile.gender}
               </h6>
               <p
                 style={{
@@ -152,7 +156,7 @@ function CardProfil() {
                   verticalAlign: "Center",
                 }}
               >
-                08123456789
+                {profile.phone}
               </h6>
               <p
                 style={{
@@ -162,7 +166,7 @@ function CardProfil() {
                 }}
                 className="text-muted"
               >
-                Gender
+                Phone
               </p>
             </div>
           </div>
@@ -180,7 +184,7 @@ function CardProfil() {
                   verticalAlign: "Center",
                 }}
               >
-                Perumahan Permata Bintaro No.56
+                {profile.address}
               </h6>
               <p
                 style={{

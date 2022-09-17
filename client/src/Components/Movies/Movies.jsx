@@ -6,7 +6,7 @@ import BannerMovies from "./BannerMovies";
 import Content from "../Home/Content";
 
 function Movies() {
-  console.log(data);
+  //console.log(data);
   return (
     <div className="app">
       <TopNavbar />

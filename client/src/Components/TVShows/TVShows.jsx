@@ -9,9 +9,11 @@ export default class TVShows extends Component {
   render() {
     return (
       <div className="app">
-        <TopNavbar />
-        <BannerTv data={data} />
-        <ContentTV category="TV Series" data={data} />
+        <div style={{ maxHeight: "100%" }}>
+          <TopNavbar />
+          <BannerTv data={data} />
+          <ContentTV category="TV Series" data={data} />
+        </div>
       </div>
     );
   }

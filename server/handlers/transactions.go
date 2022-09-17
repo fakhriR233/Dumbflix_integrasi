@@ -10,6 +10,7 @@ import (
 	"strconv"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/gorilla/mux"
 )
 
@@ -61,6 +62,9 @@ func (h *handlerTransaction) GetTransaction(w http.ResponseWriter, r *http.Reque
 
   func (h *handlerTransaction) CreateTransaction(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+
+	userInfo := r.Context().Value("userInfo").(jwt.MapClaims)
+	userId := int(userInfo["id"].(float64))
   
 	request := new(transactiondto.TransactionRequest)
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
@@ -82,9 +86,9 @@ func (h *handlerTransaction) GetTransaction(w http.ResponseWriter, r *http.Reque
 	transaction := models.Transaction{
 		StartDate:    	request.StartDate,
 		DueDate:     	request.DueDate,
-		UserID:    		request.UserID,
+		UserID:    		userId,
 		Attache:    	request.Attache,
-		Status:      	"Pending",
+		Status:      	"pending",
 	}
   
 	transaction, err = h.TransactionRepository.CreateTransaction(transaction)
@@ -117,7 +121,7 @@ func (h *handlerTransaction) UpdateTransaction(w http.ResponseWriter, r *http.Re
 
 	transactionDataOld, _ := h.TransactionRepository.GetTransaction(id)
   
-	transaction := models.Transaction{}
+	transaction := models.Transaction{} 
   
 	if request.StartDate != "" {
 		transaction.StartDate = request.StartDate

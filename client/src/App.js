@@ -33,7 +33,7 @@ function App() {
       Navigate("/");
     } else {
       if (state.user.status === "admin") {
-        Navigate("/listtransaction");
+        Navigate("/listtransactions");
       } else if (state.user.status === "user") {
         Navigate("/");
       }

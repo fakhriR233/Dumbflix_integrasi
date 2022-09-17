@@ -65,7 +65,7 @@ const ModalRegister = ({
 
       const response = await API.post("/register", body, config);
 
-      console.log(response.data);
+      //console.log(response.data);
 
       if (response.data.code === 200) {
         const alert = (

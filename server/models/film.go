@@ -8,7 +8,7 @@ type Film struct {
 	ThumbnailFilm		string				`json:"thumbnailfilm" form:"thumbnailfilm" gorm:"type:varchar(255)"`
 	Year				int					`json:"year" form:"year" gorm:"type: int"`
 	CategoryID 			int                	`json:"category_id"`
-	Category   			CategoryResponse   	`json:"category" form:"category" gorm:"foreignKey:CategoryID" gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Category   			CategoryResponse   	`json:"category" form:"category" gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Description			string				`json:"description" form:"description" gorm:"type: text"`
   	CreatedAt  			time.Time            `json:"-"`
   	UpdatedAt  			time.Time            `json:"-"`
@@ -20,7 +20,7 @@ type FilmResponse struct {
 	ThumbnailFilm		string						`json:"thumbnailfilm" form:"thumbnailfilm" gorm:"type:varchar(255)"`
 	Year				int							`json:"year" form:"year" gorm:"type: int"`
 	CategoryID 			int                			`json:"category_id"`
-	Category   			CategoryResponse    		`json:"category" form:"category" gorm:"foreignKey:CategoryID" gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Category   			CategoryResponse    		`json:"category" form:"category" gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Description			string						`json:"description" form:"description" gorm:"type: text"`
 }
 
