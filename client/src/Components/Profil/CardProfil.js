@@ -65,7 +65,7 @@ function CardProfil({ profile }) {
                   verticalAlign: "Center",
                 }}
               >
-                {profile.email}
+                {profile?.email}
               </h6>
               <p
                 style={{
@@ -98,8 +98,8 @@ function CardProfil({ profile }) {
                 }}
                 className="ps-1"
               >
-                {profile.subscribe !== "" && profile.subscribe !== "false"
-                  ? "Activer"
+                {profile?.subscribe !== "" && profile?.subscribe !== "false"
+                  ? "Active"
                   : "Inactive"}
               </h6>
               <p
@@ -128,7 +128,7 @@ function CardProfil({ profile }) {
                   verticalAlign: "Center",
                 }}
               >
-                {profile.gender}
+                {profile?.gender}
               </h6>
               <p
                 style={{
@@ -156,7 +156,7 @@ function CardProfil({ profile }) {
                   verticalAlign: "Center",
                 }}
               >
-                {profile.phone}
+                {profile?.phone}
               </h6>
               <p
                 style={{
@@ -184,7 +184,7 @@ function CardProfil({ profile }) {
                   verticalAlign: "Center",
                 }}
               >
-                {profile.address}
+                {profile?.address}
               </h6>
               <p
                 style={{

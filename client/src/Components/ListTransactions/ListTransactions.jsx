@@ -16,7 +16,7 @@ function ListTransactions() {
   });
 
   return (
-    <Container fluid style={{ backgroundColor: "#2f2f2f", height: "100vh" }}>
+    <Container fluid style={{ backgroundColor: "#2f2f2f", height: "100%" }}>
       <Row>
         <TopNavAdmin />
       </Row>

@@ -80,7 +80,7 @@ function App() {
         <Route path="/" exact element={<HomeScreen />} />
         <Route path="/tvshows" exact element={<TVShows />} />
         <Route path="/movies" exact element={<Movies />} />
-        <Route path="/moviesdetails" exact element={<MoviesDetails />} />
+        <Route path="/moviesdetails/:id" exact element={<MoviesDetails />} />
         <Route path="/profile" element={<Profil />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/listtransactions" element={<ListTransactions />} />

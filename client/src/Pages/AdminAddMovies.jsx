@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import { useNavigate } from "react-router-dom";
 import TopNavbarAdmin from "../Components/Utility/TopNavAdmin";
 import Thumbnail from "../Images/Icons/Attachment.png";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 import { API } from "../config/api";
 import { Alert } from "react-bootstrap";
@@ -17,32 +17,73 @@ const AdminAddMovies = () => {
   const title = " Admin Add Movies";
   document.title = "Dumbflix | " + title;
 
+  const [categoryId, setCategoryId] = useState([]);
+
   const [form, setForm] = useState({
-    title: "",
-    thumbnailfilm: "",
-    year: "",
-    category_id: "",
-    description: "",
+    Title: "",
+    ThumbnailFilm: "",
+    Year: "",
+    CategoryID: "",
+    Description: "",
   });
 
+  let { data: categories, refetch } = useQuery("categoriesCache", async () => {
+    const response = await API.get("/categories");
+    console.log(response.data.data);
+    return response.data.data;
+  });
+
+  useEffect(() => {
+    setCategoryId(categories);
+    // console.log(categoryId[0]?.id);
+  }, [categories]);
+
   const [message, setMessage] = useState(null);
+
+  const handleChange = (e) => {
+    console.log("test onchange");
+    setForm({
+      ...form,
+      [e.target.name]:
+        e.target.type === "file" ? e.target.files : e.target.value,
+    });
+    console.log(form);
+  };
 
   const addButtonHandler = useMutation(async (e) => {
     try {
       e.preventDefault();
 
+      if (form.CategoryID === "") {
+        setForm({ ...form, CategoryID: categoryId[0]?.id });
+      }
+      // console.log(form);
+
+      const formData = new FormData();
+      formData.set(
+        "ThumbnailFilm",
+        form?.ThumbnailFilm[0],
+        form?.ThumbnailFilm[0]?.name
+      );
+      formData.set("Title", form.Title);
+      formData.set("Description", form.Description);
+      formData.set("Year", form.Year);
+      formData.set("CategoryID", form.CategoryID);
+
+      console.log(form);
       // Configuration Content-type
       const config = {
         headers: {
-          "Content-type": "application/json",
+          "Content-type": "multipart/form-data",
         },
       };
 
       // Data body
-      const body = JSON.stringify(form);
+      // const body = JSON.stringify(formData);
 
       // Insert data user to database
-      const response = await API.post("/film", body, config);
+      const response = await API.post("/film", formData, config);
+      Navigate("/addlistpage");
 
       // Handling response here
     } catch (error) {
@@ -59,6 +100,7 @@ const AdminAddMovies = () => {
   return (
     <div className="admin-add-movie-body">
       <TopNavbarAdmin />
+      {message && message}
       <div className="">
         <Form
           className="w-75 mx-auto"
@@ -70,6 +112,8 @@ const AdminAddMovies = () => {
               <Form.Control
                 placeholder="Title"
                 className="admin-add-movie-form"
+                name="Title"
+                onChange={handleChange}
               />
             </Col>
             <Col>
@@ -81,23 +125,33 @@ const AdminAddMovies = () => {
                   placeholder="Attach Thumbnail"
                   className="admin-add-movie-thumb-file"
                   type="file"
+                  name="ThumbnailFilm"
+                  onChange={handleChange}
                 />
               </Form.Group>
             </Col>
           </Row>
 
           <Form.Group className="mb-3" controlId="formGridYear">
-            <Form.Control placeholder="Year" className="admin-add-movie-form" />
+            <Form.Control
+              placeholder="Year"
+              className="admin-add-movie-form"
+              name="Year"
+              onChange={handleChange}
+            />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formGridCategory">
             <Form.Select
-              defaultValue="Category..."
+              // defaultValue={1}
               className="admin-add-movie-form"
+              name="CategoryID"
+              onChange={handleChange}
             >
-              <option>Choose...</option>
-              <option>Action</option>
-              <option>Comedy</option>
+              <option>...</option>
+              {categories?.map((item) => (
+                <option value={item?.id}>{item?.name}</option>
+              ))}
             </Form.Select>
           </Form.Group>
 
@@ -106,10 +160,12 @@ const AdminAddMovies = () => {
               as="textarea"
               placeholder="Description"
               className="admin-add-movie-form"
+              name="Description"
+              onChange={handleChange}
             />
           </Form.Group>
 
-          <Row className="mb-3">
+          {/* <Row className="mb-3">
             <Col xs={9}>
               <Form.Control
                 placeholder="Title Episode"
@@ -142,7 +198,7 @@ const AdminAddMovies = () => {
             variant="outline-light"
           >
             +
-          </Button>
+          </Button> */}
 
           <Button
             variant="danger"

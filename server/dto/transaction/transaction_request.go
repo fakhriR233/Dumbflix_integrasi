@@ -3,7 +3,7 @@ package transactiondto
 import "dumbflix_be/models"
 
 type TransactionRequest struct {
-	ID				int							`json:"id" gorm:"primary_key:auto_increment"`
+	ID				int							`json:"id" validate:"required"`
 	StartDate		string						`json:"startDate" form:"startDate" gorm:"type: varchar(255)"`
 	DueDate			string						`json:"dueDate" form:"dueDate" gorm:"type:varchar(255)"`
 	User   			models.UserResponse    		`json:"userId"`
