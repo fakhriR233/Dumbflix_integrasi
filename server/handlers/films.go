@@ -18,7 +18,7 @@ type handlerFilm struct {
 	FilmRepository repositories.FilmRepository
   }
 
-//var path_file = os.Getenv("PATH_FILE")
+// var path_file = "http://localhost:5000/uploads/"
 
 func HandlerFilm(FilmRepository repositories.FilmRepository) *handlerFilm {
 	return &handlerFilm{FilmRepository}
@@ -39,6 +39,10 @@ func (h *handlerFilm) FindFilms(w http.ResponseWriter, r *http.Request) {
 	for i, p := range film {
 		film[i].ThumbnailFilm = os.Getenv("PATH_FILE") + p.ThumbnailFilm
 	}
+
+	// for i, p := range film {
+	// 	film[i].ThumbnailFilm = path_file + p.ThumbnailFilm
+	// }
   
   
 	w.WriteHeader(http.StatusOK)

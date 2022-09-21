@@ -69,7 +69,10 @@ function ContentTVAdmin(props) {
                 {allFilm?.map((item, id) => {
                   return (
                     <SwiperSlide>
-                      <Link to="/admintvdetails" className="card_item">
+                      <Link
+                        to={"/admintvdetails/" + item?.id}
+                        className="card_item"
+                      >
                         <img
                           className="img_size_tv_home"
                           // src={require("../../Images/default.png")}

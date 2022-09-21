@@ -113,15 +113,34 @@ func (h *handlerEpisode) GetEpisode(w http.ResponseWriter, r *http.Request) {
 func (h *handlerEpisode) UpdateEpisode(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
   
-	request := new(episodedto.EpisodeUpdateRequest) //take pattern data submission
-	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
-	  w.WriteHeader(http.StatusBadRequest)
-	  response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
-	  json.NewEncoder(w).Encode(response)
-	  return
-	}
+	// request := new(episodedto.EpisodeUpdateRequest) //take pattern data submission
+	// if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+	//   w.WriteHeader(http.StatusBadRequest)
+	//   response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
+	//   json.NewEncoder(w).Encode(response)
+	//   return
+	// }
   
 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
+	dataContex := r.Context().Value("dataFile") // add this code
+  	filename := dataContex.(string)
+
+	film_id, _ := strconv.Atoi(r.FormValue("FilmID"))
+
+	request := episodedto.EpisodeUpdateRequest{
+		Title:       		r.FormValue("Title"),
+		LinkFilm:       	r.FormValue("LinkFilm"),
+		FilmID: 			film_id,
+	}
+
+	validation := validator.New()
+	err := validation.Struct(request)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		response := dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
 
 	episodeDataOld, _ := h.EpisodeRepository.GetEpisode(id)
   
@@ -133,8 +152,9 @@ func (h *handlerEpisode) UpdateEpisode(w http.ResponseWriter, r *http.Request) {
 		episode.Title = episodeDataOld.Title
 	}
 
-	if request.ThumbnailFilm != "" {
-		episode.ThumbnailFilm = request.ThumbnailFilm
+	if filename != "false" {
+		episode.ThumbnailFilm = filename
+		// fmt.Println(filename)
 	}else {
 		episode.ThumbnailFilm = episodeDataOld.ThumbnailFilm
 	}

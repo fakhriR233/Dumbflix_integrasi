@@ -43,7 +43,7 @@ func (r *repository) CreateTransaction(transaction models.Transaction) (models.T
 
 func (r *repository) UpdateTransaction(status string, ID string) (error) {
 	var transaction models.Transaction
-	r.db.Preload("Product").First(&transaction, ID)
+	r.db.Preload("User").First(&transaction, ID)
 	if status != transaction.Status && status == "success" {
 		var user models.User
 		r.db.First(&user, transaction.UserID)

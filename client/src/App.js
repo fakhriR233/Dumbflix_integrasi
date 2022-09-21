@@ -80,7 +80,16 @@ function App() {
         <Route path="/" exact element={<HomeScreen />} />
         <Route path="/tvshows" exact element={<TVShows />} />
         <Route path="/movies" exact element={<Movies />} />
-        <Route path="/moviesdetails/:id" exact element={<MoviesDetails />} />
+        <Route
+          path="/moviesdetails/:id/:ideps"
+          exact
+          element={<MoviesDetails />}
+        />
+        <Route
+          path="/moviesdetails/episode/:id"
+          exact
+          element={<MoviesDetails />}
+        />
         <Route path="/profile" element={<Profil />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/listtransactions" element={<ListTransactions />} />
@@ -88,8 +97,8 @@ function App() {
         {/* <Route path="/admintransaction" element={<AdminTransaction />} /> */}
         <Route path="/addlistpage" element={<AddListPage />} />
         <Route path="/addepisode" element={<AddEpisode />} />
-        <Route path="/adminmoviedetails" element={<AdminMovieDetails />} />
-        <Route path="/admintvdetails" element={<AdminTVDetails />} />
+        <Route path="/adminmoviedetails/:id" element={<AdminMovieDetails />} />
+        <Route path="/admintvdetails/:id" element={<AdminTVDetails />} />
       </Routes>
     </>
   );

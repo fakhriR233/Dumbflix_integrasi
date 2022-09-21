@@ -14,7 +14,7 @@ import { API } from "../../config/api";
 
 function ContentDetails() {
   //call useParams, use the id
-  let { id } = useParams();
+  let { id, ideps } = useParams();
   const [allEpisode, setAllEpisode] = useState([]);
 
   //call get all episode API

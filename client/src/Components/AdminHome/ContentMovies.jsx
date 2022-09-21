@@ -15,7 +15,7 @@ function ContentMoviesAdmin(props) {
 
   let { data: movies } = useQuery("moviesCache", async () => {
     const response = await API.get("/films");
-    //console.log(response.data.data);
+    console.log(response.data.data);
     return response.data.data;
   });
 
@@ -69,7 +69,10 @@ function ContentMoviesAdmin(props) {
                 {allMovie?.map((item, id) => {
                   return (
                     <SwiperSlide>
-                      <Link to="/adminmoviedetails" className="card_item">
+                      <Link
+                        to={"/adminmoviedetails/" + item?.id}
+                        className="card_item"
+                      >
                         <img
                           className="img_size_tv_home"
                           // src={require("../../Images/default.png")}

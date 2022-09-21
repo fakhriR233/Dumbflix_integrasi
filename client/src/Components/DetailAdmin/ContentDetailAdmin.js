@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -9,8 +9,46 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation } from "swiper";
 import ButtonModalAddEpisode from "../AddEpisode/ButtonModalAddEpisode";
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import { API } from "../../config/api";
 
 function ContentDetailAdmin() {
+  let { id } = useParams();
+  const [allEpisode, setAllEpisode] = useState([]);
+
+  //call get all episode API
+  let { data: episodes } = useQuery("episodesCache", async () => {
+    const response = await API.get("/episodes");
+    // console.log(response.data.film_id);
+    return response.data.data;
+  });
+
+  let { data: film } = useQuery("filmCache", async () => {
+    const response = await API.get("/film/" + id);
+    // console.log(response.data.film_id);
+    return response.data.data;
+  });
+
+  useEffect(() => {
+    setAllEpisode(
+      episodes
+        ?.filter((item) => item?.film_id == id)
+        .map(({ id, title, thumbnailEpisode, linkFilm, film_id, film }) => ({
+          id,
+          title,
+          thumbnailEpisode,
+          linkFilm,
+          film_id,
+          film,
+        }))
+    );
+
+    //console.log(allFilm);
+  }, [episodes]);
+
+  console.log(allEpisode);
+
   return (
     <div className="container">
       <div class="ratio ratio-16x9 trailer_movies">

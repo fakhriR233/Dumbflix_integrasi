@@ -100,7 +100,7 @@ function CardProfil({ profile }) {
               >
                 {profile?.subscribe !== "" && profile?.subscribe !== "false"
                   ? "Active"
-                  : "Inactive"}
+                  : "Belom Subscribe KWOKWOKWO"}
               </h6>
               <p
                 style={{

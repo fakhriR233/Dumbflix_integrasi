@@ -68,7 +68,15 @@ function ListTransactions() {
                               ? "Active"
                               : "Inactive"}
                           </td>
-                          <td className="text-success fw-bold">
+                          <td
+                            className={
+                              item.status !== "" &&
+                              item.status !== "Pending" &&
+                              item.status !== "pending"
+                                ? "text-success fw-bold"
+                                : "text-warning fw-bold"
+                            }
+                          >
                             {item.status}
                           </td>
                         </tr>

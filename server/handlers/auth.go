@@ -183,6 +183,7 @@ func (h *handlerAuth) Login(w http.ResponseWriter, r *http.Request) {
 		Status:   		user.Status,
 		Gender:   		user.Gender,
 		Phone:   		user.Phone,
+		Subscribe:   	user.Subscribe,
 		Address:   		user.Address,
 	}
 
