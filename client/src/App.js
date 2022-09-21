@@ -80,11 +80,7 @@ function App() {
         <Route path="/" exact element={<HomeScreen />} />
         <Route path="/tvshows" exact element={<TVShows />} />
         <Route path="/movies" exact element={<Movies />} />
-        <Route
-          path="/moviesdetails/:id/:ideps"
-          exact
-          element={<MoviesDetails />}
-        />
+        <Route path="/moviesdetails/:id" exact element={<MoviesDetails />} />
         <Route
           path="/moviesdetails/episode/:id"
           exact
