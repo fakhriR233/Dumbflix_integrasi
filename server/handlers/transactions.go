@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 
 	"gopkg.in/gomail.v2"
 
@@ -90,7 +91,7 @@ func (h *handlerTransaction) GetTransaction(w http.ResponseWriter, r *http.Reque
 
 	var TransIdIsMatch = false
 	var TransactionId int
-	for !TransIdIsMatch { TransactionId = userId + rand.Intn(10000) - rand.Intn(100)
+	for !TransIdIsMatch { TransactionId = userId + int(time.Now().Unix()) + (rand.Intn(10000) - rand.Intn(100))
 		transactionData, _ := h.TransactionRepository.GetTransaction(TransactionId)
 		if transactionData.ID == 0 {
 			TransIdIsMatch = true
